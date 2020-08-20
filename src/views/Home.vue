@@ -2,6 +2,8 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    {{ get_all_cats.length }}
+    {{ animals_count }}
     <button v-on:click="toggle_pet_form" class="btn btn-primary">Add new Pet</button>
     <b-form @submit.prevent="handle_submit" v-if="show_pet_form">
 
@@ -41,7 +43,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'Home',
   data () {
@@ -57,6 +59,12 @@ export default {
   components: {
     HelloWorld
   },
+  computed: {
+    ...mapGetters([
+      'animals_count',
+      'get_all_cats'
+    ])
+  },
   methods: {
     ...mapActions([
       'add_pet'
@@ -68,6 +76,12 @@ export default {
       const { species, age, name } = this.form_data
       const payload = { species, pet: { name, age } }
       this.add_pet(payload)
+      // Reset form after submit
+      this.form_data = {
+        name: '',
+        age: '',
+        species: null
+      }
     }
   }
 }

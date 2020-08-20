@@ -1,5 +1,5 @@
 export default [
-    {
+      {
       name: 'Fish',
       breed: 'tuxedo',
       species: 'cat',
