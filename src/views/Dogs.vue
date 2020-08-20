@@ -4,7 +4,7 @@
         <div>
             <b-table striped hover :items="dogs">
                 <template v-slot:cell(name)="data">
-                    <router-link v-bind:to="`/pets/${data.index}`">{{ data.value }}</router-link>
+                    <router-link v-bind:to="`/pets/dogs/${data.index}`">{{ data.value }}</router-link>
                 </template>
             </b-table>
         </div>
@@ -13,13 +13,19 @@
 
 <script>
 // @ is a Vue-cli shortcut reference to the src folder, to avoid writing ../data/
-import dogs from '@/data/dogs'
+// import dogs from '@/data/dogs'
+
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
-      // short hand for cats:cats
-      dogs
     }
+  },
+  computed: {
+    ...mapState([
+      'dogs'
+    ])
   }
 }
 </script>
